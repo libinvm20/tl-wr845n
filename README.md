@@ -1,11 +1,12 @@
-# Iqbal Mahmud Smart Router Firmware: TL-WR845N v4
+# Libin Smart Router Firmware: TL-WR845N v4
 
-Custom Padavan firmware for the **TP-Link TL-WR845N v4** (MT7628NN, 4 MB flash, 32 MB RAM), by **[Iqbal Mahmud](https://iqbalmahmud.com)**.
+Custom Padavan firmware for the **TP-Link TL-WR845N v4** (MT7628NN, 4 MB flash, 32 MB RAM), by **[Libin](https://iqbalmahmud.com)**.
 
 - **Smart WAN Watchdog**: the router fixes its own internet drops.
 - **Speed Control**: chosen devices get full speed, everyone else gets the limit you set. Set it from its own web page.
+- **Dark theme**: the whole web UI, including the icons, in dark colours. No extra size.
 - **English / বাংলা**: switch the web UI language with one click.
-- **Iqbal Mahmud branding**: logo, page title, footer, SSH banner, default Wi-Fi name.
+- **Libin branding**: logo, page title, footer, SSH banner, default Wi-Fi name.
 
 Based on [lucktu/padavan_TW641](https://github.com/lucktu/padavan_TW641) (padavan-ng, Linux 3.4), pinned to commit `90f694d`. GPL v2.
 
@@ -17,9 +18,11 @@ Based on [lucktu/padavan_TW641](https://github.com/lucktu/padavan_TW641) (padava
 | Hardware CPU watchdog | ✅ | ✅ |
 | Speed Control (VIP / per-device / shared pool) | ❌ | ✅ web page + commands |
 | Bengali (বাংলা) web UI with one-click switch | ❌ | ✅ |
+| Dark theme (pages, buttons, tables, icons) | ❌ | ✅ |
+| VPN Server / VPN Client menu entries | shown | hidden (not used on this router) |
 | Traffic control (`tc`, HTB) | ❌ | ✅ |
 | IPSet | ✅ | ❌ removed to make room |
-| Branding | Padavan | Iqbal Mahmud |
+| Branding | Padavan | Libin |
 | Default Wi-Fi name | `TL_WR845N-V4_%s` (bug) | `IqbalMahmud_WiFi` |
 
 Upgrading from v1 keeps your settings (Wi-Fi, PPPoE, password). Take a **Settings Backup** first anyway.
@@ -94,9 +97,23 @@ speedctl on
 ### Notes
 
 - Set `speedctl line` to your **real** plan speed. Too high and VIP priority gets weaker; too low and everyone is capped below what you pay for.
-- When Speed Control is on, it automatically switches off Software Offload (SFE), which would otherwise skip the limits.
+- When Speed Control is on, it automatically switches off Software Offload (SFE), which would otherwise skip the limits. Peak routing speed is lower while limits are on; leave Speed Control off if you only want maximum speed.
 - Traffic between devices on your own network (e.g. file copy laptop → PC) is never limited, only internet traffic.
 - Activity is logged under **Administration → System Log** with the tag `speedctl`.
+
+## Dark theme
+
+The web UI uses a dark theme everywhere: panels, tables, tabs, menus, buttons, inputs, pop-ups and alert boxes, plus the icons.
+
+- **CSS:** only existing colour values in `main.css` and `bootstrap.min.css` were changed. No rules were added, so the files stay the same size (`bootstrap.min.css` +60 bytes, `main.css` −6 bytes).
+- **Icons:** the Network Map icon sheet `big-icons.png` has a dark palette and is the same size as before (9181 bytes). Active icons are bright, inactive ones are dim. The small menu and button icons use the white icon sheet.
+- **Light bars:** many pages set a light grey background directly on section headers. A few lines in `state.js` darken any such light background automatically, so light text stays readable on every page.
+- **Blue stays blue:** title bars and primary buttons keep their blue colour and white text.
+- **Browser cache:** the browser keeps CSS and images for about 30 days. After upgrading, press **Ctrl+F5** to see the new theme.
+
+## Menu
+
+The **VPN Server** and **VPN Client** menu entries are hidden because this build doesn't include OpenVPN, WireGuard or IPsec. This only hides the menu items; it does not change the firmware size.
 
 ## Mobile
 
@@ -113,10 +130,12 @@ The web UI adapts to phones and tablets: the menu stacks above the page, setting
 ## Build (GitHub Actions)
 
 1. Put this folder in a GitHub repository, keeping `.github/workflows` and `patches`.
-2. **Actions → Build Iqbal Mahmud Smart Firmware → Run workflow**.
+2. **Actions → Build Libin Smart Firmware → Run workflow**.
 3. After 30–60 min download the **IqbalMahmud-WR845Nv4-v2** artifact: `IqbalMahmud_WR845Nv4_v2.bin` + `SHA256SUMS.txt`.
 
 The build fails on purpose if the image is larger than the 3.84 MB firmware partition.
+
+The patch contains binary changes (logo and icon sheet), so apply it with `git apply`, not `patch -p1`.
 
 ## Flash
 
