@@ -1346,6 +1346,25 @@ index 9647ab9..9296eb0 100755
  }
  
  .input-append {
+diff --git a/trunk/user/www/n56u_ribbon_fixed/bootstrap/img/icons/big-icons.png b/trunk/user/www/n56u_ribbon_fixed/bootstrap/img/icons/big-icons.png
+index fc2933cae4eeece47c5531042107fcd2a2191cbb..514f063193d82e4c41178d714e14bdb72c362658 100755
+GIT binary patch
+delta 267
+zcmV+m0rdXeN8Lw|DSsv=COsV#ay}YmHWpbi6h|EtOBoqzCMIAYAZQ^WR~;Qu8ymqo
+zI>$ppvNkrxQ&WK{DUK;Aoh~kNBO{AS9Gg-f)^szrU?j(ACX|$v*x1-MIW$U2N>5Ku
+zXlQ6(Utd;MR*Z~{baZrpfPkQ&pt!iW<mBYX$H#?*g=A!8K7T$wL_|a|8b?MXYdaoR
+zSt^KVGN6xD%7H_|L6Eg$sK!#B!5J+)DO74DM_(sLaUVNZ9XU@MGe$38k2PnZJ8-vU
+zk<Cwo#wk;OPmVk?SSDn#PI<j$hQo7@$9_C%E<kQGEH)}BDJk{A*<=6!BC$zCK~#9!
+Rj9A-_EFlQwtFtEowjv98W+wmu
+
+delta 267
+zcmV+m0rdXeN8Lw|DS!0z^!V-S?8d9`(7W^7%J$>m^4QqoudnI7z2~#D?a0XQ(9p&~
+zLA*FP%T!dUI5^#tliP!X)o^g+r>E$$jO3(u&1)&$j8xiwKWArW5D*aF;N8Z?#=pP6
+zpP!$rtE;xQwsCQBkdTmpfq_?7S2;O30000bB_(=#dZeVJ)qmC1&d$!}+w#b+<lD*Y
+zvWnZCYtd~qrhPuXPn^Ivd6qtktmp6bt<K-P)a9nX;K$kP(c$jf=kb85)oGZ{O@YQQ
+zS&}$wu9djmkH~(@<-=yOP*asaNrN~;b~Cu!t+Cdo<?7_{@bFeKia!7VBC$zCK~#9!
+Rj9A-_EFlQwtFtEowj#%3p(X$T
+
 diff --git a/trunk/user/www/n56u_ribbon_fixed/bootstrap/img/libin_logo.png b/trunk/user/www/n56u_ribbon_fixed/bootstrap/img/libin_logo.png
 new file mode 100644
 index 0000000000000000000000000000000000000000..6ca4cc316da237b303a8eba9cac93c5204e8f8f1
@@ -1418,7 +1437,7 @@ index 795a2ee8e..8523f300c 100755
  
  	flash_button();
  }
-@@ -647,6 +650,64 @@ function show_loading_obj(){
+@@ -647,6 +650,69 @@ function show_loading_obj(){
  	id_check_status = setTimeout('hideLoading();', 3000);
  }
  
@@ -1457,6 +1476,11 @@ index 795a2ee8e..8523f300c 100755
 +	var lg = d.getElementById('logo');
 +	if (lg)
 +		lg.style.backgroundImage = 'url(/bootstrap/img/libin_logo.png)';
++	// hide the VPN Server / VPN Client menu entries (not used on this router)
++	var vm = d.querySelectorAll('#mainMenu a[href*="vpn" i]');
++	for (i = 0; i < vm.length; i++)
++		if (vm[i].parentNode)
++			vm[i].parentNode.style.display = 'none';
 +	// inline light backgrounds (e.g. #E3E3E3 section bars) -> dark, so light text stays readable
 +	var ib = d.querySelectorAll('[style*="background"]'), c;
 +	for (i = 0; i < ib.length; i++) {
