@@ -1418,7 +1418,7 @@ index 795a2ee8e..8523f300c 100755
  
  	flash_button();
  }
-@@ -647,6 +650,57 @@ function show_loading_obj(){
+@@ -647,6 +650,64 @@ function show_loading_obj(){
  	id_check_status = setTimeout('hideLoading();', 3000);
  }
  
@@ -1457,6 +1457,13 @@ index 795a2ee8e..8523f300c 100755
 +	var lg = d.getElementById('logo');
 +	if (lg)
 +		lg.style.backgroundImage = 'url(/bootstrap/img/libin_logo.png)';
++	// inline light backgrounds (e.g. #E3E3E3 section bars) -> dark, so light text stays readable
++	var ib = d.querySelectorAll('[style*="background"]'), c;
++	for (i = 0; i < ib.length; i++) {
++		c = ib[i].style.backgroundColor.match(/\d+/g);
++		if (c && c.length >= 3 && Math.min(c[0], c[1], c[2]) >= 205 && Math.max(c[0], c[1], c[2]) - Math.min(c[0], c[1], c[2]) <= 12)
++			ib[i].style.backgroundColor = '#333';
++	}
 +	// wide tables (3+ columns) scroll sideways on small screens instead of overflowing
 +	var tbls = d.querySelectorAll('table.table');
 +	for (i = 0; i < tbls.length; i++) {
